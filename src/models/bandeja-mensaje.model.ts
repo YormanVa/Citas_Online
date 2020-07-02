@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Actividad} from './actividad.model';
 
 @model()
 export class BandejaMensaje extends Entity {
@@ -28,6 +29,13 @@ export class BandejaMensaje extends Entity {
   })
   hora: string;
 
+  @property({
+    type: 'string',
+  })
+  estado?: string;
+
+  @belongsTo(() => Actividad, {name: 'estado'})
+  perfil2: string;
 
   constructor(data?: Partial<BandejaMensaje>) {
     super(data);

@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Perfil} from './perfil.model';
+import {BandejaMensaje} from './bandeja-mensaje.model';
 
 @model()
 export class Actividad extends Entity {
@@ -27,6 +29,11 @@ export class Actividad extends Entity {
   })
   perfil2: object;
 
+  @belongsTo(() => Perfil)
+  perfilId: string;
+
+  @hasMany(() => BandejaMensaje, {keyTo: 'estado'})
+  bandejaMensajes: BandejaMensaje[];
 
   constructor(data?: Partial<Actividad>) {
     super(data);

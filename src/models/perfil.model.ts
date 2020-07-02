@@ -1,4 +1,8 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Usuario} from './usuario.model';
+import {Imagen} from './imagen.model';
+import {Actividad} from './actividad.model';
+import {Caracterizacion} from './caracterizacion.model';
 
 @model()
 export class Perfil extends Entity {
@@ -64,6 +68,17 @@ export class Perfil extends Entity {
   })
   orientacionSexual: string;
 
+  @belongsTo(() => Usuario)
+  usuarioId: string;
+
+  @hasMany(() => Imagen)
+  imagenes: Imagen[];
+
+  @hasMany(() => Actividad)
+  actividades: Actividad[];
+
+  @hasMany(() => Caracterizacion)
+  caracterizaciones: Caracterizacion[];
 
   constructor(data?: Partial<Perfil>) {
     super(data);
