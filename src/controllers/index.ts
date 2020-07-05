@@ -13,3 +13,4 @@ export * from './perfil.controller';
 export * from './actividad.controller';
 export * from './usuario-perfil.controller';
 export * from './perfil-usuario.controller';
+export * from './user.controller';
