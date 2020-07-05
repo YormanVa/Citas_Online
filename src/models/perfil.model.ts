@@ -1,4 +1,4 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany, hasOne} from '@loopback/repository';
 import {Usuario} from './usuario.model';
 import {Imagen} from './imagen.model';
 import {Actividad} from './actividad.model';
@@ -80,8 +80,7 @@ export class Perfil extends Entity {
   })
   orientacionSexual: string;
 
-  @belongsTo(() => Usuario)
-  usuarioId: string;
+  
 
   @hasMany(() => Imagen)
   imagenes: Imagen[];
@@ -91,6 +90,9 @@ export class Perfil extends Entity {
 
   @hasMany(() => Caracterizacion)
   caracterizaciones: Caracterizacion[];
+
+  @hasOne(() => Usuario)
+  usuario: Usuario;
 
   constructor(data?: Partial<Perfil>) {
     super(data);

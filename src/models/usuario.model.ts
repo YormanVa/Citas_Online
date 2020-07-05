@@ -1,4 +1,4 @@
-import {Entity, model, property, hasOne} from '@loopback/repository';
+import {Entity, model, property, hasOne, belongsTo} from '@loopback/repository';
 import {Perfil} from './perfil.model';
 
 @model()
@@ -28,8 +28,8 @@ export class Usuario extends Entity {
   })
   edad: number;
 
-  @hasOne(() => Perfil)
-  perfil: Perfil;
+  @belongsTo(() => Perfil)
+  perfilId: string;
 
   constructor(data?: Partial<Usuario>) {
     super(data);

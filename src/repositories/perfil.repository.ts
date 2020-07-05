@@ -1,4 +1,4 @@
-import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory} from '@loopback/repository';
+import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory, HasOneRepositoryFactory} from '@loopback/repository';
 import {Perfil, PerfilRelations, Usuario, Imagen, Actividad, Caracterizacion} from '../models';
 import {MongoDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
@@ -13,7 +13,7 @@ export class PerfilRepository extends DefaultCrudRepository<
   PerfilRelations
 > {
 
-  public readonly usuario: BelongsToAccessor<Usuario, typeof Perfil.prototype.id>;
+
 
   public readonly imagenes: HasManyRepositoryFactory<Imagen, typeof Perfil.prototype.id>;
 
@@ -21,17 +21,20 @@ export class PerfilRepository extends DefaultCrudRepository<
 
   public readonly caracterizaciones: HasManyRepositoryFactory<Caracterizacion, typeof Perfil.prototype.id>;
 
+  public readonly usuario: HasOneRepositoryFactory<Usuario, typeof Perfil.prototype.id>;
+
   constructor(
     @inject('datasources.mongo') dataSource: MongoDataSource, @repository.getter('UsuarioRepository') protected usuarioRepositoryGetter: Getter<UsuarioRepository>, @repository.getter('ImagenRepository') protected imagenRepositoryGetter: Getter<ImagenRepository>, @repository.getter('ActividadRepository') protected actividadRepositoryGetter: Getter<ActividadRepository>, @repository.getter('CaracterizacionRepository') protected caracterizacionRepositoryGetter: Getter<CaracterizacionRepository>,
   ) {
     super(Perfil, dataSource);
+    this.usuario = this.createHasOneRepositoryFactoryFor('usuario', usuarioRepositoryGetter);
+    this.registerInclusionResolver('usuario', this.usuario.inclusionResolver);
     this.caracterizaciones = this.createHasManyRepositoryFactoryFor('caracterizaciones', caracterizacionRepositoryGetter,);
     this.registerInclusionResolver('caracterizaciones', this.caracterizaciones.inclusionResolver);
     this.actividades = this.createHasManyRepositoryFactoryFor('actividades', actividadRepositoryGetter,);
     this.registerInclusionResolver('actividades', this.actividades.inclusionResolver);
     this.imagenes = this.createHasManyRepositoryFactoryFor('imagenes', imagenRepositoryGetter,);
     this.registerInclusionResolver('imagenes', this.imagenes.inclusionResolver);
-    this.usuario = this.createBelongsToAccessorFor('usuario', usuarioRepositoryGetter,);
-    this.registerInclusionResolver('usuario', this.usuario.inclusionResolver);
+   
   }
 }

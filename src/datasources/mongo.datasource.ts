@@ -5,7 +5,7 @@ const config = {
   name: 'mongo',
   connector: 'mongodb',
   url: 'mongodb+srv://user_citas_project:neipHDrdOIDnHVcv@cluster0-zjgh5.mongodb.net/CitasDB?retryWrites=true&w=majority',
-  host: 'cluster0-o5xwl.mongodb.net',
+  host: 'cluster0-zjgh5.mongodb.net',
   port: 27017,
   user: 'user_citas_project',
   password: 'neipHDrdOIDnHVcv',

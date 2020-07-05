@@ -11,3 +11,5 @@ export * from './actividad-bandeja-mensaje.controller';
 export * from './bandeja-mensaje-actividad.controller';
 export * from './perfil.controller';
 export * from './actividad.controller';
+export * from './usuario-perfil.controller';
+export * from './perfil-usuario.controller';
