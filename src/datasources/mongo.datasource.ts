@@ -4,13 +4,14 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'mongo',
   connector: 'mongodb',
-  url: 'mongodb+srv://user_citas_project:u0myl0W6DtdD7EtW@cluster0-o5xwl.mongodb.net/CitasDB?retryWrites=true&w=majority',
+  url: 'mongodb+srv://user_citas_project:neipHDrdOIDnHVcv@cluster0-zjgh5.mongodb.net/CitasDB?retryWrites=true&w=majority',
   host: 'cluster0-o5xwl.mongodb.net',
   port: 27017,
   user: 'user_citas_project',
-  password: 'u0myl0W6DtdD7EtW',
+  password: 'neipHDrdOIDnHVcv',
   database: 'CitasDB',
   useNewUrlParser: true
+
 };
 
 /**const config = {
