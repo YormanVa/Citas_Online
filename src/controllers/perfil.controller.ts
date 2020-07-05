@@ -18,6 +18,8 @@ import {
 } from '@loopback/rest';
 import {Perfil} from '../models';
 import {PerfilRepository, UsuarioRepository} from '../repositories';
+import { EncryptDecrypt } from '../services/encrypt-decrypt.service';
+import {ServiceKeys as keys} from '../keys/services-keys';
 
 export class PerfilController {
   constructor(
@@ -49,9 +51,11 @@ export class PerfilController {
     perfil: Omit<Perfil, 'id'>,
   ): Promise<Perfil> {
     let p = await this.perfilRepository.create(perfil);
+    let contrasena1 = new EncryptDecrypt(keys.LOGIN_CRYPT).Encrypt(p.nombre);
+    let contrasena2 = new EncryptDecrypt(keys.LOGIN_CRYPT).Encrypt(contrasena1);
     let u ={
       correo: p.correo,
-  	  contrasena : p.nombre,
+  	  contrasena : contrasena2,
      	edad: p.edad,
 	    perfilId: p.id
     };
@@ -169,7 +173,15 @@ export class PerfilController {
     @param.path.string('id') id: string,
     @requestBody() perfil: Perfil,
   ): Promise<void> {
+
+    let u = await this.usuarioRepository.findOne({where:{perfilId: perfil.id}});
+    if(u){
+      u.correo = perfil.correo;
+      await this.usuarioRepository.replaceById(u.id, u);
+
+    }
     await this.perfilRepository.replaceById(id, perfil);
+  
   }
 
   @del('/perfil/{id}', {
