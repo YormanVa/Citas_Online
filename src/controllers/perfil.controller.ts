@@ -17,12 +17,14 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {Perfil} from '../models';
-import {PerfilRepository} from '../repositories';
+import {PerfilRepository, UsuarioRepository} from '../repositories';
 
 export class PerfilController {
   constructor(
     @repository(PerfilRepository)
     public perfilRepository : PerfilRepository,
+    @repository(UsuarioRepository)
+    public usuarioRepository : UsuarioRepository,
   ) {}
 
   @post('/perfil', {
@@ -46,7 +48,17 @@ export class PerfilController {
     })
     perfil: Omit<Perfil, 'id'>,
   ): Promise<Perfil> {
-    return this.perfilRepository.create(perfil);
+    let p = await this.perfilRepository.create(perfil);
+    let u ={
+      correo: p.correo,
+  	  contrasena : p.nombre,
+     	edad: p.edad,
+	    perfilId: p.id
+    };
+    let usuario = await this.usuarioRepository.create(u);
+    usuario.contrasena = '';
+    p.usuario = usuario;
+    return p;
   }
 
   @get('/perfil/count', {

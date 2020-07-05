@@ -23,6 +23,12 @@ export class Perfil extends Entity {
     type: 'string',
     required: true,
   })
+  correo: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   sexo: string;
 
   @property({
@@ -69,16 +75,17 @@ export class Perfil extends Entity {
   ocupacion?: string;
 
   @property({
-    type: 'string',
+    type: 'boolean',
     required: true,
   })
-  estado: string;
+  estado: boolean;
 
   @property({
     type: 'string',
     required: true,
   })
   orientacionSexual: string;
+  
 
   
 
