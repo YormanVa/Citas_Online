@@ -9,3 +9,5 @@ export * from './perfil-caracterizacion.controller';
 export * from './caracterizacion-perfil.controller';
 export * from './actividad-bandeja-mensaje.controller';
 export * from './bandeja-mensaje-actividad.controller';
+export * from './perfil.controller';
+export * from './actividad.controller';

@@ -4,6 +4,18 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'mongo',
   connector: 'mongodb',
+  url: 'mongodb+srv://user_citas_project:u0myl0W6DtdD7EtW@cluster0-o5xwl.mongodb.net/CitasDB?retryWrites=true&w=majority',
+  host: 'cluster0-o5xwl.mongodb.net',
+  port: 27017,
+  user: 'user_citas_project',
+  password: 'u0myl0W6DtdD7EtW',
+  database: 'CitasDB',
+  useNewUrlParser: true
+};
+
+/**const config = {
+  name: 'mongo',
+  connector: 'mongodb',
   url: 'mongodb+srv://user_citas_project:u0myl0W6DtdD7EtW@cluster0-jhlei.mongodb.net/CitasDB?retryWrites=true&w=majority',
   host: 'cluster0-jhlei.mongodb.net',
   port: 27017,
@@ -11,7 +23,7 @@ const config = {
   password: 'u0myl0W6DtdD7EtW',
   database: 'CitasDB',
   useNewUrlParser: true
-};
+};**/
 
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down
