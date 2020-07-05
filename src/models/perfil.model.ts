@@ -26,7 +26,7 @@ export class Perfil extends Entity {
   sexo: string;
 
   @property({
-    type: 'geopoint',
+    type: 'string',
     required: true,
   })
   ubicacion: string;
@@ -41,6 +41,12 @@ export class Perfil extends Entity {
     type: 'boolean',
   })
   hijos?: boolean;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  estadoCivil: string;
 
   @property({
     type: 'string',
@@ -61,6 +67,12 @@ export class Perfil extends Entity {
     type: 'string',
   })
   ocupacion?: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  estado: string;
 
   @property({
     type: 'string',

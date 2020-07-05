@@ -33,7 +33,7 @@ export class Caracterizacion extends Entity {
   tipoRelacion: string;
 
   @property({
-    type: 'geopoint',
+    type: 'string',
     required: true,
   })
   ubicacion: string;
