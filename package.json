@@ -56,6 +56,7 @@
     "@types/passport-http-bearer": "^1.0.35",
     "@types/sequelize": "github:types/sequelize",
     "crypto-js": "^4.0.0",
+    "generate-password": "^1.5.1",
     "jsonwebtoken": "^8.5.1",
     "loopback-connector-mongodb": "^5.2.3",
     "passport": "^0.4.1",
