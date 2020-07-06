@@ -4,3 +4,6 @@ export * from './caracterizacion.repository';
 export * from './imagen.repository';
 export * from './perfil.repository';
 export * from './usuario.repository';
+export * from './denuncia.repository';
+export * from './ubicacion.repository';
+export * from './opinion.repository';

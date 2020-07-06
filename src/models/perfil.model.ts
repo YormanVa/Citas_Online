@@ -3,6 +3,9 @@ import {Usuario} from './usuario.model';
 import {Imagen} from './imagen.model';
 import {Actividad} from './actividad.model';
 import {Caracterizacion} from './caracterizacion.model';
+import {Denuncia} from './denuncia.model';
+import {Ubicacion} from './ubicacion.model';
+import {Opinion} from './opinion.model';
 
 @model()
 export class Perfil extends Entity {
@@ -30,13 +33,6 @@ export class Perfil extends Entity {
     required: true,
   })
   sexo: string;
-
-  @property({
-    type: 'string',
-    required: true,
-  })
-  ubicacion: string;
-
   @property({
     type: 'number',
     required: true,
@@ -100,6 +96,15 @@ export class Perfil extends Entity {
 
   @hasOne(() => Usuario)
   usuario: Usuario;
+
+  @hasMany(() => Denuncia)
+  denuncia: Denuncia[];
+
+  @hasOne(() => Ubicacion)
+  ubicacion: Ubicacion;
+
+  @hasOne(() => Opinion)
+  opinion: Opinion;
 
   constructor(data?: Partial<Perfil>) {
     super(data);

@@ -44,6 +44,7 @@ export class AuthService {
       data: {
         _id: user.id,
         username: user.correo,
+        rol : user.rol,
         edad: user.edad,
         perfilId: user.perfilId
       }

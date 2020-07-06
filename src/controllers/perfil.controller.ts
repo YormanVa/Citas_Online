@@ -20,6 +20,7 @@ import {Perfil} from '../models';
 import {PerfilRepository, UsuarioRepository} from '../repositories';
 import {EncryptDecrypt} from '../services/encrypt-decrypt.service';
 import {ServiceKeys as keys} from '../keys/services-keys';
+import {Usuario as user} from '../models/usuario.model';
 import {
   AuthenticationBindings,
   authenticate,

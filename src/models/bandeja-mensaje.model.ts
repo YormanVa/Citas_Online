@@ -37,6 +37,9 @@ export class BandejaMensaje extends Entity {
   @belongsTo(() => Actividad, {name: 'estado'})
   perfil2: string;
 
+  @belongsTo(() => Actividad, {name: 'estado'})
+  perfil1: string;
+
   constructor(data?: Partial<BandejaMensaje>) {
     super(data);
   }
