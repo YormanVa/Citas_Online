@@ -8,8 +8,12 @@ import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
+import {
+  AuthenticationComponent,
+  AuthenticationBindings,
+} from '@loopback/authentication';
+import {MyAuthStrategyProvider} from './providers/auth-strategy.provider';
 import {MySequence} from './sequence';
-
 export {ApplicationConfig};
 
 export class CitasOnlineApplication extends BootMixin(
@@ -18,11 +22,12 @@ export class CitasOnlineApplication extends BootMixin(
   constructor(options: ApplicationConfig = {}) {
     super(options);
 
-    // Set up the custom sequence
-    this.sequence(MySequence);
+
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
+
+
 
     // Customize @loopback/rest-explorer configuration here
     this.configure(RestExplorerBindings.COMPONENT).to({
@@ -31,7 +36,11 @@ export class CitasOnlineApplication extends BootMixin(
     this.component(RestExplorerComponent);
 
     this.projectRoot = __dirname;
-    // Customize @loopback/boot Booter Conventions here
+
+    this.component(AuthenticationComponent);
+    this.bind(AuthenticationBindings.STRATEGY).toProvider(MyAuthStrategyProvider);
+    this.sequence(MySequence);
+
     this.bootOptions = {
       controllers: {
         // Customize ControllerBooter Conventions here
