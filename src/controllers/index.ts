@@ -20,3 +20,5 @@ export * from './ubicacion-perfil.controller';
 export * from './perfil-ubicacion.controller';
 export * from './perfil-opinion.controller';
 export * from './opinion-perfil.controller';
+
+export * from './ubicacion.controller';

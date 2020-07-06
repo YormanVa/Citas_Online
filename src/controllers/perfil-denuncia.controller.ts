@@ -61,7 +61,7 @@ export class PerfilDenunciaController {
           schema: getModelSchemaRef(Denuncia, {
             title: 'NewDenunciaInPerfil',
             exclude: ['id'],
-            optional: ['perfilId']
+            optional: ['perfil1']
           }),
         },
       },

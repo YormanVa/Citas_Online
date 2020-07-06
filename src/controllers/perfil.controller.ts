@@ -35,7 +35,7 @@ export class PerfilController {
   ) {}
 
 
-  @authenticate('TokenStrategy')
+  
   @post('/perfil', {
     responses: {
       '200': {
@@ -73,7 +73,7 @@ export class PerfilController {
   }
 
 
-  @authenticate('TokenStrategy')
+  
   @get('/perfil/count', {
     responses: {
       '200': {
@@ -89,7 +89,7 @@ export class PerfilController {
   }
 
 
-  @authenticate('TokenStrategy')
+  
   @get('/perfil', {
     responses: {
       '200': {

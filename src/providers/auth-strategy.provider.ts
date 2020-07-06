@@ -34,11 +34,12 @@ export class MyAuthStrategyProvider implements Provider<Strategy | undefined> {
     switch (name) {
       case 'BasicStrategy':
         return new BasicStrategy(this.verifyUser.bind(this));
-        break;
+        
+      case 'TokenPerfilStrategy':
+        return new BearerStrategy(this.verifyPerfilToken.bind(this));
 
-      case 'TokenStrategy':
-        return new BearerStrategy(this.verifyToken.bind(this));
-
+        case 'TokenAdminStrategy':
+          return new BearerStrategy(this.verifyAdminToken.bind(this));
 
       default:
         return Promise.reject(`The strategy ${name} is not available.`);
@@ -57,13 +58,24 @@ export class MyAuthStrategyProvider implements Provider<Strategy | undefined> {
     return cb(null, user);
 
   }
-  verifyToken(
+  verifyPerfilToken(
     token: string,
     cb: (err: Error | null, user?: object | false) => void
   ) {
-    this.authService.VerifyToken(token).then(verification => {
-      if (verification) {
-        return cb(null, verification);
+    this.authService.VerifyToken(token).then(data=> {
+      if (data && data.rol ==1) {
+        return cb(null, data);
+      }
+      return cb(null, false);
+    });
+  }
+  verifyAdminToken(
+    token: string,
+    cb: (err: Error | null, user?: object | false) => void
+  ) {
+    this.authService.VerifyToken(token).then(data => {
+      if (data && data.rol ==2) {
+        return cb(null, data);
       }
       return cb(null, false);
     });

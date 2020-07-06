@@ -22,9 +22,10 @@ export class Denuncia extends Entity {
   })
   rutaPruebas: string;
 
-  @belongsTo(() => Perfil)
+  @belongsTo(() => Perfil, {name: 'id'})
   perfil1: string;
-  @belongsTo(() => Perfil)
+  
+  @belongsTo(() => Perfil, {name: 'id'})
   perfil2: string;
 
   constructor(data?: Partial<Denuncia>) {

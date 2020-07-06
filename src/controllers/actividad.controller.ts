@@ -18,6 +18,7 @@ import {
 } from '@loopback/rest';
 import {Actividad} from '../models';
 import {ActividadRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
 
 export class ActividadController {
   constructor(
@@ -25,6 +26,7 @@ export class ActividadController {
     public actividadRepository : ActividadRepository,
   ) {}
 
+  @authenticate('TokenPerfilStrategy')
   @post('/actividad', {
     responses: {
       '200': {
@@ -49,6 +51,7 @@ export class ActividadController {
     return this.actividadRepository.create(actividad);
   }
 
+  @authenticate('TokenPerfikStrategy')
   @get('/actividad/count', {
     responses: {
       '200': {
@@ -62,7 +65,7 @@ export class ActividadController {
   ): Promise<Count> {
     return this.actividadRepository.count(where);
   }
-
+  
   @get('/actividad', {
     responses: {
       '200': {
