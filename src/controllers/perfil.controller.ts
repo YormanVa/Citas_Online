@@ -18,17 +18,23 @@ import {
 } from '@loopback/rest';
 import {Perfil} from '../models';
 import {PerfilRepository, UsuarioRepository} from '../repositories';
-import { EncryptDecrypt } from '../services/encrypt-decrypt.service';
+import {EncryptDecrypt} from '../services/encrypt-decrypt.service';
 import {ServiceKeys as keys} from '../keys/services-keys';
+import {
+  AuthenticationBindings,
+  authenticate,
+} from '@loopback/authentication';
 
 export class PerfilController {
   constructor(
     @repository(PerfilRepository)
-    public perfilRepository : PerfilRepository,
+    public perfilRepository: PerfilRepository,
     @repository(UsuarioRepository)
-    public usuarioRepository : UsuarioRepository,
+    public usuarioRepository: UsuarioRepository,
   ) {}
 
+
+  @authenticate('TokenStrategy')
   @post('/perfil', {
     responses: {
       '200': {
@@ -53,11 +59,11 @@ export class PerfilController {
     let p = await this.perfilRepository.create(perfil);
     let contrasena1 = new EncryptDecrypt(keys.LOGIN_CRYPT).Encrypt(p.nombre);
     let contrasena2 = new EncryptDecrypt(keys.LOGIN_CRYPT).Encrypt(contrasena1);
-    let u ={
+    let u = {
       correo: p.correo,
-  	  contrasena : contrasena2,
-     	edad: p.edad,
-	    perfilId: p.id
+      contrasena: contrasena2,
+      edad: p.edad,
+      perfilId: p.id
     };
     let usuario = await this.usuarioRepository.create(u);
     usuario.contrasena = '';
@@ -65,6 +71,8 @@ export class PerfilController {
     return p;
   }
 
+
+  @authenticate('TokenStrategy')
   @get('/perfil/count', {
     responses: {
       '200': {
@@ -79,6 +87,8 @@ export class PerfilController {
     return this.perfilRepository.count(where);
   }
 
+
+  @authenticate('TokenStrategy')
   @get('/perfil', {
     responses: {
       '200': {
@@ -174,14 +184,14 @@ export class PerfilController {
     @requestBody() perfil: Perfil,
   ): Promise<void> {
 
-    let u = await this.usuarioRepository.findOne({where:{perfilId: perfil.id}});
-    if(u){
+    let u = await this.usuarioRepository.findOne({where: {perfilId: perfil.id}});
+    if (u) {
       u.correo = perfil.correo;
       await this.usuarioRepository.replaceById(u.id, u);
 
     }
     await this.perfilRepository.replaceById(id, perfil);
-  
+
   }
 
   @del('/perfil/{id}', {
