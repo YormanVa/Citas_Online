@@ -37,7 +37,7 @@ export class UserController {
   ): Promise<object> {
     let user = await this.authService.Identify(credentials.correo, credentials.password)
     if (user) {
-      let tk = this.authService.GenerateToken(user);
+      let tk =  await this.authService.GenerateToken(user);
       return {
         data: user,
         token: tk
