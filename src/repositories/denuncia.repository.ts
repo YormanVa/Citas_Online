@@ -18,5 +18,6 @@ export class DenunciaRepository extends DefaultCrudRepository<
     super(Denuncia, dataSource);
     this.perfil = this.createBelongsToAccessorFor('perfil', perfilRepositoryGetter,);
     this.registerInclusionResolver('perfil', this.perfil.inclusionResolver);
+
   }
 }

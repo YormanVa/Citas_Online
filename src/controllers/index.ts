@@ -14,7 +14,6 @@ export * from './actividad.controller';
 export * from './usuario-perfil.controller';
 export * from './perfil-usuario.controller';
 export * from './user.controller';
-export * from './perfil-denuncia.controller';
 export * from './denuncia-perfil.controller';
 export * from './ubicacion-perfil.controller';
 export * from './perfil-ubicacion.controller';

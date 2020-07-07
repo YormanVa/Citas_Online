@@ -35,7 +35,7 @@ export class PerfilController {
   ) {}
 
 
-  
+
   @post('/perfil', {
     responses: {
       '200': {
@@ -64,6 +64,7 @@ export class PerfilController {
       correo: p.correo,
       contrasena: contrasena2,
       edad: p.edad,
+      rol: 1,
       perfilId: p.id
     };
     let usuario = await this.usuarioRepository.create(u);
@@ -73,7 +74,7 @@ export class PerfilController {
   }
 
 
-  
+
   @get('/perfil/count', {
     responses: {
       '200': {
@@ -89,7 +90,7 @@ export class PerfilController {
   }
 
 
-  
+
   @get('/perfil', {
     responses: {
       '200': {

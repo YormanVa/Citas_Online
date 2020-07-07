@@ -32,7 +32,15 @@ export class Perfil extends Entity {
     type: 'string',
     required: true,
   })
+  phone: string;
+
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   sexo: string;
+  
   @property({
     type: 'number',
     required: true,
@@ -81,9 +89,9 @@ export class Perfil extends Entity {
     required: true,
   })
   orientacionSexual: string;
-  
 
-  
+
+
 
   @hasMany(() => Imagen)
   imagenes: Imagen[];

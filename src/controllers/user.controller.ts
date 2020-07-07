@@ -2,8 +2,11 @@
 
 import {repository} from '@loopback/repository';
 import {HttpErrors, post, requestBody} from '@loopback/rest';
-import {UsuarioRepository} from '../repositories';
+import {UsuarioRepository, PerfilRepository} from '../repositories';
 import {AuthService} from '../services/auth.service';
+import {NotificationDataSource} from '../datasources/notification.datasource';
+import {SmsNotification, Perfil} from '../models';
+import {NotificationService} from '../services/notification.service';
 
 // import {inject} from '@loopback/core';
 
@@ -24,7 +27,9 @@ export class UserController {
 
   constructor(
     @repository(UsuarioRepository)
-    public userRepository: UsuarioRepository
+    public userRepository: UsuarioRepository,
+    @repository(PerfilRepository)
+    public perfilRepository:PerfilRepository
   ) {
     this.authService = new AuthService(this.userRepository);
   }
@@ -69,8 +74,23 @@ export class UserController {
     if (randomPassword) {
       switch (passwordResetData.type) {
         case 1:
-          console.log("sending SMS" + randomPassword);
-          return true;
+
+        let perfil = await this.perfilRepository.findOne({where: {correo: passwordResetData.correo}})
+      if(perfil){
+        let notification = new SmsNotification({
+            body: `Su nueva contraseña es: ${randomPassword}`,
+            to: perfil.phone
+          });
+          let sms = await new NotificationService().SmsNotification(notification);
+          if(sms){
+            console.log("sms message sent")
+            return true
+          }
+         throw new HttpErrors[400]("Phone is not found");
+
+        }
+        throw new HttpErrors[400]("User not found");
+
           break;
         case 2:
           console.log("sending mail" + randomPassword);

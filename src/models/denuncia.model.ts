@@ -22,11 +22,8 @@ export class Denuncia extends Entity {
   })
   rutaPruebas: string;
 
-  @belongsTo(() => Perfil, {name: 'id'})
-  perfil1: string;
-  
-  @belongsTo(() => Perfil, {name: 'id'})
-  perfil2: string;
+  @belongsTo(() => Perfil)
+  perfilId: string;
 
   constructor(data?: Partial<Denuncia>) {
     super(data);
