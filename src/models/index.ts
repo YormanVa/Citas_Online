@@ -8,3 +8,4 @@ export * from './denuncia.model';
 export * from './ubicacion.model';
 export * from './opinion.model';
 export * from './sms-notification.model';
+export * from './email-notification.model';

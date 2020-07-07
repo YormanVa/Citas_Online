@@ -53,6 +53,7 @@
     "@loopback/rest": "^5.1.1",
     "@loopback/rest-explorer": "^2.2.4",
     "@loopback/service-proxy": "^2.3.2",
+    "@sendgrid/mail": "^7.2.1",
     "@types/passport-http-bearer": "^1.0.35",
     "@types/sequelize": "github:types/sequelize",
     "crypto-js": "^4.0.0",
