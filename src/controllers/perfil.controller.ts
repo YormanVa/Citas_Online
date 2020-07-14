@@ -1,30 +1,30 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
+import {ServiceKeys as keys} from '../keys/services-keys';
 import {Perfil} from '../models';
 import {PerfilRepository, UsuarioRepository} from '../repositories';
 import {EncryptDecrypt} from '../services/encrypt-decrypt.service';
-import {ServiceKeys as keys} from '../keys/services-keys';
-import {Usuario as user} from '../models/usuario.model';
-import {
-  AuthenticationBindings,
-  authenticate,
-} from '@loopback/authentication';
 
 export class PerfilController {
   constructor(
@@ -63,7 +63,7 @@ export class PerfilController {
     let u = {
       correo: p.correo,
       contrasena: contrasena2,
-      edad: p.edad,
+      fecha_nacimiento: p.fecha_nacimiento,
       rol: 1,
       perfilId: p.id
     };
@@ -90,7 +90,7 @@ export class PerfilController {
   }
 
 
-
+  @authenticate('BasicStrategy')
   @get('/perfil', {
     responses: {
       '200': {
@@ -112,6 +112,7 @@ export class PerfilController {
     return this.perfilRepository.find(filter);
   }
 
+  @authenticate('BasicStrategy')
   @patch('/perfil', {
     responses: {
       '200': {
@@ -134,6 +135,7 @@ export class PerfilController {
     return this.perfilRepository.updateAll(perfil, where);
   }
 
+  @authenticate('BasicStrategy')
   @get('/perfil/{id}', {
     responses: {
       '200': {
@@ -153,6 +155,7 @@ export class PerfilController {
     return this.perfilRepository.findById(id, filter);
   }
 
+  @authenticate('BasicStrategy')
   @patch('/perfil/{id}', {
     responses: {
       '204': {
@@ -174,6 +177,7 @@ export class PerfilController {
     await this.perfilRepository.updateById(id, perfil);
   }
 
+  @authenticate('BasicStrategy')
   @put('/perfil/{id}', {
     responses: {
       '204': {

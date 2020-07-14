@@ -1,11 +1,11 @@
-import {Entity, model, property, belongsTo, hasMany, hasOne} from '@loopback/repository';
-import {Usuario} from './usuario.model';
-import {Imagen} from './imagen.model';
+import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
 import {Actividad} from './actividad.model';
 import {Caracterizacion} from './caracterizacion.model';
 import {Denuncia} from './denuncia.model';
-import {Ubicacion} from './ubicacion.model';
+import {Imagen} from './imagen.model';
 import {Opinion} from './opinion.model';
+import {Ubicacion} from './ubicacion.model';
+import {Usuario} from './usuario.model';
 
 @model()
 export class Perfil extends Entity {
@@ -40,12 +40,12 @@ export class Perfil extends Entity {
     required: true,
   })
   sexo: string;
-  
+
   @property({
     type: 'number',
     required: true,
   })
-  edad: number;
+  fecha_nacimiento: Date;
 
   @property({
     type: 'boolean',

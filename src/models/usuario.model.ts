@@ -1,4 +1,4 @@
-import {Entity, model, property, hasOne, belongsTo} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
 import {Perfil} from './perfil.model';
 
 @model()
@@ -33,7 +33,7 @@ export class Usuario extends Entity {
     type: 'number',
     required: true,
   })
-  edad: number;
+  fecha_nacimiento: Date;
 
   @belongsTo(() => Perfil)
   perfilId: string;

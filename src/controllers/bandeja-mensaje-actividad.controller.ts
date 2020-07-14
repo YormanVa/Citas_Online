@@ -1,23 +1,19 @@
+import {authenticate} from '@loopback/authentication';
+import {repository} from '@loopback/repository';
 import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
   get,
-  getModelSchemaRef,
+  getModelSchemaRef, param
 } from '@loopback/rest';
-import {
-  BandejaMensaje,
-  Actividad,
-} from '../models';
+import {Actividad, BandejaMensaje} from '../models';
 import {BandejaMensajeRepository} from '../repositories';
 
 export class BandejaMensajeActividadController {
   constructor(
     @repository(BandejaMensajeRepository)
     public bandejaMensajeRepository: BandejaMensajeRepository,
-  ) { }
+  ) {}
 
+  @authenticate('BasicStrategy')
   @get('/bandeja-mensajes/{id}/actividad', {
     responses: {
       '200': {
