@@ -7,3 +7,4 @@ export * from './usuario.repository';
 export * from './denuncia.repository';
 export * from './ubicacion.repository';
 export * from './opinion.repository';
+export * from './advertising.repository';
