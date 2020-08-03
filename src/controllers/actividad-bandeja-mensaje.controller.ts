@@ -3,7 +3,7 @@ import {
   CountSchema,
   Filter,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -13,18 +13,19 @@ import {
   param,
   patch,
   post,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {
   Actividad,
-  BandejaMensaje,
+  BandejaMensaje
 } from '../models';
 import {ActividadRepository} from '../repositories';
 
 export class ActividadBandejaMensajeController {
   constructor(
     @repository(ActividadRepository) protected actividadRepository: ActividadRepository,
-  ) { }
+  ) {}
+
 
   @get('/actividads/{id}/bandeja-mensajes', {
     responses: {

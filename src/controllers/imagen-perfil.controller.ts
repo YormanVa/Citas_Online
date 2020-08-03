@@ -1,14 +1,11 @@
+import {repository} from '@loopback/repository';
 import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
   get,
-  getModelSchemaRef,
+  getModelSchemaRef, param
 } from '@loopback/rest';
 import {
   Imagen,
-  Perfil,
+  Perfil
 } from '../models';
 import {ImagenRepository} from '../repositories';
 
@@ -16,8 +13,9 @@ export class ImagenPerfilController {
   constructor(
     @repository(ImagenRepository)
     public imagenRepository: ImagenRepository,
-  ) { }
+  ) {}
 
+  @authenticate('BasicStrategy')
   @get('/imagens/{id}/perfil', {
     responses: {
       '200': {

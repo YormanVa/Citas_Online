@@ -21,25 +21,13 @@ import {
 
   requestBody
 } from '@loopback/rest';
-<<<<<<< HEAD
-import {ServiceKeys as keys} from '../keys/services-keys';
-import {Perfil} from '../models';
-import {PerfilRepository, UsuarioRepository} from '../repositories';
-import {EncryptDecrypt} from '../services/encrypt-decrypt.service';
-=======
 import {NotificationKeys} from '../keys/notification-keys';
+import {ServiceKeys as keys} from '../keys/services-keys';
+import {EmailNotification, Perfil} from '../models';
 import {PerfilRepository, UsuarioRepository} from '../repositories';
 import {EncryptDecrypt} from '../services/encrypt-decrypt.service';
-import {ServiceKeys as keys} from '../keys/services-keys';
-import {Perfil, EmailNotification, Usuario, SmsNotification} from '../models';
-import {Usuario as user} from '../models/usuario.model';
-import {
-  AuthenticationBindings,
-  authenticate,
-} from '@loopback/authentication';
 import {NotificationService} from '../services/notification.service';
 
->>>>>>> ce253b38aa2e6f317b60e4b899a55c695228dbae
 
 export class PerfilController {
   constructor(
@@ -50,7 +38,7 @@ export class PerfilController {
   ) {}
 
 
-
+  @authenticate('BasicStrategy')
   @post('/perfil', {
     responses: {
       '200': {
@@ -79,11 +67,7 @@ export class PerfilController {
     let u = {
       correo: p.correo,
       contrasena: contrasena2,
-<<<<<<< HEAD
-      fecha_nacimiento: p.fecha_nacimiento,
-=======
       fechaNacimiento: p.fechaNacimiento,
->>>>>>> ce253b38aa2e6f317b60e4b899a55c695228dbae
       rol: 1,
       perfilId: p.id
     };
@@ -106,7 +90,7 @@ export class PerfilController {
   }
 
 
-
+  @authenticate('BasicStrategy')
   @get('/perfil/count', {
     responses: {
       '200': {
@@ -232,6 +216,7 @@ export class PerfilController {
 
   }
 
+  @authenticate('TokenAdminStrategy')
   @del('/perfil/{id}', {
     responses: {
       '204': {

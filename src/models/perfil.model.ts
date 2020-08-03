@@ -45,11 +45,7 @@ export class Perfil extends Entity {
     type: 'string',
     required: true,
   })
-<<<<<<< HEAD
-  fecha_nacimiento: Date;
-=======
   fechaNacimiento: "string";
->>>>>>> ce253b38aa2e6f317b60e4b899a55c695228dbae
 
   @property({
     type: 'string',
