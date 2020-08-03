@@ -1,5 +1,5 @@
-import {SmsNotification, EmailNotification} from '../models';
 import {NotificationDataSource} from '../datasources/notification.datasource';
+import {EmailNotification, SmsNotification} from '../models';
 const twilio = require('twilio');
 const sgMail = require('@sendgrid/mail');
 
@@ -27,7 +27,7 @@ export class NotificationService {
       return false;
     }
   }
-  async MailNotification(notification: EmailNotification): Promise<boolean> {
+  async EmailNotification(notification: EmailNotification): Promise<boolean> {
     try {
       sgMail.setApiKey(NotificationDataSource.SENDGRID_API_KEY);
       const msg = {

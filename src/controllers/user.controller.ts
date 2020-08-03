@@ -100,7 +100,7 @@ export class UserController {
               subject: 'Nueva contraseña'
             });
             console.log(perfil.correo)
-            let mail = await new NotificationService().MailNotification(notification);
+            let mail = await new NotificationService().EmailNotification(notification);
             if (mail) {
               console.log("Mail message sent")
               return true

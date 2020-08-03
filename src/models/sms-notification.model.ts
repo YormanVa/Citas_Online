@@ -6,13 +6,31 @@ export class SmsNotification extends Model {
     type: 'string',
     required: true,
   })
+  to: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  subject: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   body: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  to: string;
+  textBody: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  htmlBody: string;
 
 
   constructor(data?: Partial<SmsNotification>) {

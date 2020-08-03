@@ -21,10 +21,25 @@ import {
 
   requestBody
 } from '@loopback/rest';
+<<<<<<< HEAD
 import {ServiceKeys as keys} from '../keys/services-keys';
 import {Perfil} from '../models';
 import {PerfilRepository, UsuarioRepository} from '../repositories';
 import {EncryptDecrypt} from '../services/encrypt-decrypt.service';
+=======
+import {NotificationKeys} from '../keys/notification-keys';
+import {PerfilRepository, UsuarioRepository} from '../repositories';
+import {EncryptDecrypt} from '../services/encrypt-decrypt.service';
+import {ServiceKeys as keys} from '../keys/services-keys';
+import {Perfil, EmailNotification, Usuario, SmsNotification} from '../models';
+import {Usuario as user} from '../models/usuario.model';
+import {
+  AuthenticationBindings,
+  authenticate,
+} from '@loopback/authentication';
+import {NotificationService} from '../services/notification.service';
+
+>>>>>>> ce253b38aa2e6f317b60e4b899a55c695228dbae
 
 export class PerfilController {
   constructor(
@@ -58,16 +73,33 @@ export class PerfilController {
     perfil: Omit<Perfil, 'id'>,
   ): Promise<Perfil> {
     let p = await this.perfilRepository.create(perfil);
+    let contrasena = p.nombre;
     let contrasena1 = new EncryptDecrypt(keys.LOGIN_CRYPT).Encrypt(p.nombre);
     let contrasena2 = new EncryptDecrypt(keys.LOGIN_CRYPT).Encrypt(contrasena1);
     let u = {
       correo: p.correo,
       contrasena: contrasena2,
+<<<<<<< HEAD
       fecha_nacimiento: p.fecha_nacimiento,
+=======
+      fechaNacimiento: p.fechaNacimiento,
+>>>>>>> ce253b38aa2e6f317b60e4b899a55c695228dbae
       rol: 1,
       perfilId: p.id
     };
     let usuario = await this.usuarioRepository.create(u);
+    console.log("hola")
+    console.log(perfil.correo)
+    let emailData: EmailNotification = new EmailNotification({
+      subject: NotificationKeys.subjectRegister,
+      textBody: `${NotificationKeys.registerPasswordBody} ${contrasena}`,
+      htmlBody: `${NotificationKeys.registerPasswordBody} ${contrasena}`,
+      to: perfil.correo
+
+
+    });
+    let sent = await new NotificationService().EmailNotification(emailData);
+    console.log("sent");
     usuario.contrasena = '';
     p.usuario = usuario;
     return p;

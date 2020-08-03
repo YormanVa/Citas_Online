@@ -42,15 +42,19 @@ export class Perfil extends Entity {
   sexo: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
   })
+<<<<<<< HEAD
   fecha_nacimiento: Date;
+=======
+  fechaNacimiento: "string";
+>>>>>>> ce253b38aa2e6f317b60e4b899a55c695228dbae
 
   @property({
-    type: 'boolean',
+    type: 'string',
   })
-  hijos?: boolean;
+  nivelEscolaridad?: string;
 
   @property({
     type: 'string',
@@ -60,8 +64,26 @@ export class Perfil extends Entity {
 
   @property({
     type: 'string',
+    required: true,
   })
-  nivelEscolaridad?: string;
+  orientacionSexual: string;
+
+
+  @property({
+    type: 'string',
+  })
+  ocupacion?: string;
+
+
+  @property({
+    type: 'boolean',
+  })
+  hijos?: boolean;
+
+  @property({
+    type: 'boolean',
+  })
+  fumador?: boolean;
 
   @property({
     type: 'boolean',
@@ -70,25 +92,11 @@ export class Perfil extends Entity {
 
   @property({
     type: 'boolean',
-  })
-  fumador?: boolean;
-
-  @property({
-    type: 'string',
-  })
-  ocupacion?: string;
-
-  @property({
-    type: 'boolean',
-    required: true,
+    required: false,
   })
   estado: boolean;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  orientacionSexual: string;
+
 
 
 

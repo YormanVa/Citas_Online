@@ -16,7 +16,7 @@ export class EmailNotification extends Model {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
   })
   body: string;
 
