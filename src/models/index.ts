@@ -12,3 +12,5 @@ export * from './email-notification.model';
 export * from './advertising.model';
 export * from './orientacion-sexual.model';
 export * from './estado-civil.model';
+export * from './ciudad.model';
+export * from './pais.model';

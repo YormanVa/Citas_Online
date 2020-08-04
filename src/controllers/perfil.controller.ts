@@ -106,7 +106,7 @@ export class PerfilController {
   }
 
 
-  @authenticate('BasicStrategy')
+
   @get('/perfil', {
     responses: {
       '200': {

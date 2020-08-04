@@ -15,7 +15,7 @@ export class ImagenPerfilController {
     public imagenRepository: ImagenRepository,
   ) {}
 
-  @authenticate('BasicStrategy')
+
   @get('/imagens/{id}/perfil', {
     responses: {
       '200': {

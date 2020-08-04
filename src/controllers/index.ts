@@ -22,3 +22,8 @@ export * from './opinion-perfil.controller';
 
 export * from './ubicacion.controller';
 export * from './advertising.controller';
+export * from './pais-ciudad.controller';
+export * from './ciudad-pais.controller';
+export * from './orientacion-sexual.controller';
+export * from './pais.controller';
+export * from './ciudad.controller';
