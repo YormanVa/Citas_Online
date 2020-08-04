@@ -6,6 +6,12 @@ export class OrientacionSexual extends Entity {
     type: 'string',
     required: true,
   })
+  id: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
   tipo: string;
 
 
