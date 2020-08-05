@@ -38,7 +38,7 @@ export class PerfilController {
   ) {}
 
 
-  @authenticate('BasicStrategy')
+
   @post('/perfil', {
     responses: {
       '200': {
@@ -90,7 +90,7 @@ export class PerfilController {
   }
 
 
-  @authenticate('BasicStrategy')
+
   @get('/perfil/count', {
     responses: {
       '200': {
@@ -151,7 +151,7 @@ export class PerfilController {
     return this.perfilRepository.updateAll(perfil, where);
   }
 
-  @authenticate('BasicStrategy')
+ 
   @get('/perfil/{id}', {
     responses: {
       '200': {
