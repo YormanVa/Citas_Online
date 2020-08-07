@@ -63,7 +63,7 @@ export class CiudadController {
     return this.ciudadRepository.count(where);
   }
 
-  @get('/ciudades', {
+  @get('/ciudad', {
     responses: {
       '200': {
         description: 'Array of Ciudad model instances',

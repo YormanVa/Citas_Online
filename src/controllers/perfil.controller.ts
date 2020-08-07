@@ -151,7 +151,7 @@ export class PerfilController {
     return this.perfilRepository.updateAll(perfil, where);
   }
 
- 
+
   @get('/perfil/{id}', {
     responses: {
       '200': {
@@ -226,5 +226,6 @@ export class PerfilController {
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.perfilRepository.deleteById(id);
+
   }
 }

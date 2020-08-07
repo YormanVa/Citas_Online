@@ -14,7 +14,7 @@ export class Ciudad extends Entity {
     type: 'string',
     required: true,
   })
-  Nombre: string;
+  nombre: string;
 
   @belongsTo(() => Pais)
   paisId: string;

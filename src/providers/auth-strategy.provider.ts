@@ -34,11 +34,12 @@ export class MyAuthStrategyProvider implements Provider<Strategy | undefined> {
     switch (name) {
       case 'BasicStrategy':
         return new BasicStrategy(this.verifyUser.bind(this));
-        
+
       case 'TokenPerfilStrategy':
         return new BearerStrategy(this.verifyPerfilToken.bind(this));
 
         case 'TokenAdminStrategy':
+          console.log(this.verifyAdminToken.bind(this))
           return new BearerStrategy(this.verifyAdminToken.bind(this));
 
       default:
@@ -48,7 +49,7 @@ export class MyAuthStrategyProvider implements Provider<Strategy | undefined> {
 
   }
 
-  verifyUser(
+  async verifyUser(
     correo: string,
     password: string,
     cb: (err: Error | null, user?: object | false) => void,
@@ -64,6 +65,7 @@ export class MyAuthStrategyProvider implements Provider<Strategy | undefined> {
   ) {
     this.authService.VerifyToken(token).then(info=> {
       if (info && info.data.rol ==1) {
+        console.log("vp",token)
         return cb(null, info);
       }
       return cb(null, false);
@@ -75,6 +77,7 @@ export class MyAuthStrategyProvider implements Provider<Strategy | undefined> {
   ) {
     this.authService.VerifyToken(token).then(info => {
       if (info && info.data.rol ==2) {
+        console.log("vt",token)
         return cb(null, info);
       }
       return cb(null, false);

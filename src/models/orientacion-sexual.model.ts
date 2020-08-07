@@ -4,10 +4,11 @@ import {Entity, model, property} from '@loopback/repository';
 export class OrientacionSexual extends Entity {
   @property({
     type: 'string',
-    required: true,
+    id: true,
+    generated: true,
   })
-  id: string;
-
+  id?: string;
+  
   @property({
     type: 'string',
     required: true,
