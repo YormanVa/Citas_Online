@@ -148,7 +148,7 @@ export class PaisController {
   ): Promise<void> {
     await this.paisRepository.updateById(id, pais);
   }
-
+  @authenticate('TokenAdminStrategy')
   @put('/pais/{id}', {
     responses: {
       '204': {
@@ -163,6 +163,7 @@ export class PaisController {
     await this.paisRepository.replaceById(id, pais);
   }
 
+  @authenticate('TokenAdminStrategy')
   @del('/pais/{id}', {
     responses: {
       '204': {
