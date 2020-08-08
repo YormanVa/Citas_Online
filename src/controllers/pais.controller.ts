@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -25,6 +26,7 @@ export class PaisController {
     public paisRepository : PaisRepository,
   ) {}
 
+  @authenticate('TokenAdminStrategy')
   @post('/pais', {
     responses: {
       '200': {
@@ -84,6 +86,7 @@ export class PaisController {
     return this.paisRepository.find(filter);
   }
 
+  @authenticate('TokenAdminStrategy')
   @patch('/pais', {
     responses: {
       '200': {

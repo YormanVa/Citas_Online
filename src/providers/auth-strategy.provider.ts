@@ -64,7 +64,7 @@ export class MyAuthStrategyProvider implements Provider<Strategy | undefined> {
     cb: (err: Error | null, user?: object | false) => void
   ) {
     this.authService.VerifyToken(token).then(info=> {
-      if (info && info.data.rol ==1) {
+      if (info && info.rol ==1) {
         console.log("vp",token)
         return cb(null, info);
       }
@@ -75,9 +75,11 @@ export class MyAuthStrategyProvider implements Provider<Strategy | undefined> {
     token: string,
     cb: (err: Error | null, user?: object | false) => void
   ) {
+     console.log(token);
     this.authService.VerifyToken(token).then(info => {
-      if (info && info.data.rol ==2) {
-        console.log("vt",token)
+      console.log(info)
+      if (info && info.rol == 2) {
+        console.log("im ad")
         return cb(null, info);
       }
       return cb(null, false);

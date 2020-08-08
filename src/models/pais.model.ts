@@ -14,7 +14,7 @@ export class Pais extends Entity {
     type: 'string',
     required: true,
   })
-  nombre: string;
+  Nombre: string;
 
   @hasMany(() => Ciudad)
   ciudades: Ciudad[];
