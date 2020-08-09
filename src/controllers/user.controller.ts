@@ -52,7 +52,7 @@ export class UserController {
         token: tk
       }
     } else {
-      throw new HttpErrors[401]("User or Password invalid.");
+      throw new HttpErrors[401]("Usuario o contraseña invalidos.");
     }
   }
 
@@ -76,13 +76,14 @@ export class UserController {
         case 1:
           if (perfil) {
             let notification = new SmsNotification({
-              body: `Su nueva contraseña es: ${randomPassword}`,
+              body: `Hey,tu nueva contraseña es: ${randomPassword}`,
               to: perfil.phone
             });
             console.log(perfil.phone)
             let sms = await new NotificationService().SmsNotification(notification);
             if (sms) {
-              console.log("sms message sent")
+              console.log("Mensaje de texto enviado");
+              console.log(`Hey,tu nueva contraseña es: ${randomPassword}`);
               return true
             }
             throw new HttpErrors[400]("Phone is not found");
@@ -94,21 +95,23 @@ export class UserController {
         case 2:
           if (perfil) {
             let notification = new EmailNotification({
-              textBody: `Su nueva contraseña es: ${randomPassword}`,
-              htmlBody: `Su nueva contraseña es: ${randomPassword}`,
+              textBody: `Hey, tu nueva contraseña es:${randomPassword}`,
+              htmlBody: `Hey, tu nueva contraseña es: ${randomPassword}`,
+              
               to: perfil.correo,
               subject: 'Nueva contraseña'
             });
             console.log(perfil.correo)
             let mail = await new NotificationService().EmailNotification(notification);
             if (mail) {
-              console.log("Mail message sent")
+              console.log("Correo electrónico enviado")
+              console.log(`Hey, tu nueva contraseña es:${randomPassword}`);
               return true
             }
             throw new HttpErrors[400]("Email is not found");
 
           }
-          throw new HttpErrors[400]("User not found");
+          throw new HttpErrors[401]("User not found");
           break;
 
         default:
@@ -116,7 +119,7 @@ export class UserController {
           break;
       }
     }
-    throw new HttpErrors[400]("user not found");
+    throw new HttpErrors[401]("user not found");
 
   }
 }
