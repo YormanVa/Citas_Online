@@ -19,7 +19,8 @@ import {
 
   put,
 
-  requestBody
+  requestBody,
+  HttpErrors
 } from '@loopback/rest';
 import {NotificationKeys} from '../keys/notification-keys';
 import {ServiceKeys as keys} from '../keys/services-keys';
@@ -148,7 +149,12 @@ export class PerfilController {
     perfil: Perfil,
     @param.where(Perfil) where?: Where<Perfil>,
   ): Promise<Count> {
+    let currentPerfil = await this.perfilRepository.findOne({ where:{correo: perfil.correo}});
+    if (currentPerfil){
+       throw new HttpErrors[401]("Este correo ya existe");
+    }else{
     return this.perfilRepository.updateAll(perfil, where);
+    }
   }
 
 

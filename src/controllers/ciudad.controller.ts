@@ -1,3 +1,4 @@
+import { authenticate } from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -15,6 +16,7 @@ import {
   put,
   del,
   requestBody,
+  HttpErrors,
 } from '@loopback/rest';
 import {Ciudad} from '../models';
 import {CiudadRepository} from '../repositories';
@@ -25,7 +27,9 @@ export class CiudadController {
     public ciudadRepository : CiudadRepository,
   ) {}
 
-  @post('/ciudades', {
+  
+  @authenticate('TokenAdminStrategy')
+  @post('/ciudad', {
     responses: {
       '200': {
         description: 'Ciudad model instance',
@@ -46,10 +50,16 @@ export class CiudadController {
     })
     ciudad: Omit<Ciudad, 'id'>,
   ): Promise<Ciudad> {
-    return this.ciudadRepository.create(ciudad);
-  }
+    let currentCiudad = await this.ciudadRepository.findOne({ where:{Nombre: ciudad.Nombre}});
+    if (currentCiudad){
+       throw new HttpErrors[401]("Esta ciudad ya existe");
+    }
+    else{
+      return this.ciudadRepository.create(ciudad);
+    }
+}
 
-  @get('/ciudades/count', {
+  @get('/ciudad/count', {
     responses: {
       '200': {
         description: 'Ciudad model count',
@@ -84,7 +94,7 @@ export class CiudadController {
     return this.ciudadRepository.find(filter);
   }
 
-  @patch('/ciudades', {
+  @patch('/ciudad', {
     responses: {
       '200': {
         description: 'Ciudad PATCH success count',
@@ -106,7 +116,7 @@ export class CiudadController {
     return this.ciudadRepository.updateAll(ciudad, where);
   }
 
-  @get('/ciudades/{id}', {
+  @get('/ciudad/{id}', {
     responses: {
       '200': {
         description: 'Ciudad model instance',
@@ -124,8 +134,9 @@ export class CiudadController {
   ): Promise<Ciudad> {
     return this.ciudadRepository.findById(id, filter);
   }
-
-  @patch('/ciudades/{id}', {
+  
+  @authenticate('TokenAdminStrategy')
+  @patch('/ciudad/{id}', {
     responses: {
       '204': {
         description: 'Ciudad PATCH success',
@@ -145,8 +156,9 @@ export class CiudadController {
   ): Promise<void> {
     await this.ciudadRepository.updateById(id, ciudad);
   }
-
-  @put('/ciudades/{id}', {
+  
+  @authenticate('TokenAdminStrategy')
+  @put('/ciudad/{id}', {
     responses: {
       '204': {
         description: 'Ciudad PUT success',
@@ -159,8 +171,9 @@ export class CiudadController {
   ): Promise<void> {
     await this.ciudadRepository.replaceById(id, ciudad);
   }
-
-  @del('/ciudades/{id}', {
+  
+  @authenticate('TokenAdminStrategy')
+  @del('/ciudad/{id}', {
     responses: {
       '204': {
         description: 'Ciudad DELETE success',

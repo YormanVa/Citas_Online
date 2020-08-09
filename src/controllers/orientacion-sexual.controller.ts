@@ -1,3 +1,4 @@
+import { authenticate } from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -28,8 +29,9 @@ export class OrientacionSexualController {
     @repository(OrientacionSexualRepository)
     public orientacionSexualRepository: OrientacionSexualRepository,
   ) {}
-
-  @post('/orientacion-sexual', {
+ 
+  @authenticate('TokenAdminStrategy')
+  @post('/orientacion', {
     responses: {
       '200': {
         description: 'OrientacionSexual model instance',
@@ -53,7 +55,7 @@ export class OrientacionSexualController {
     return this.orientacionSexualRepository.create(orientacionSexual);
   }
 
-  @get('/orientacion-sexual/count', {
+  @get('/orientacion/count', {
     responses: {
       '200': {
         description: 'OrientacionSexual model count',
@@ -67,7 +69,7 @@ export class OrientacionSexualController {
     return this.orientacionSexualRepository.count(where);
   }
 
-  @get('/orientacion-sexual', {
+  @get('/orientacion', {
     responses: {
       '200': {
         description: 'Array of OrientacionSexual model instances',
@@ -87,8 +89,9 @@ export class OrientacionSexualController {
   ): Promise<OrientacionSexual[]> {
     return this.orientacionSexualRepository.find(filter);
   }
-
-  @patch('/orientacion-sexual', {
+  
+  @authenticate('TokenAdminStrategy')
+  @patch('/orientacion', {
     responses: {
       '200': {
         description: 'OrientacionSexual PATCH success count',
@@ -110,7 +113,7 @@ export class OrientacionSexualController {
     return this.orientacionSexualRepository.updateAll(orientacionSexual, where);
   }
 
-  @get('/orientacion-sexual/{id}', {
+  @get('/orientacion/{id}', {
     responses: {
       '200': {
         description: 'OrientacionSexual model instance',
@@ -127,9 +130,10 @@ export class OrientacionSexualController {
     @param.filter(OrientacionSexual, {exclude: 'where'}) filter?: FilterExcludingWhere<OrientacionSexual>
   ): Promise<OrientacionSexual> {
     return this.orientacionSexualRepository.findById(id, filter);
-  }
-
-  @patch('/orientacion-sexual/{id}', {
+  } 
+  
+  @authenticate('TokenAdminStrategy')
+  @patch('/orientacion/{id}', {
     responses: {
       '204': {
         description: 'OrientacionSexual PATCH success',
@@ -149,8 +153,9 @@ export class OrientacionSexualController {
   ): Promise<void> {
     await this.orientacionSexualRepository.updateById(id, orientacionSexual);
   }
-
-  @put('/orientacion-sexual/{id}', {
+  
+  @authenticate('TokenAdminStrategy')
+  @put('/orientacion/{id}', {
     responses: {
       '204': {
         description: 'OrientacionSexual PUT success',
@@ -163,8 +168,9 @@ export class OrientacionSexualController {
   ): Promise<void> {
     await this.orientacionSexualRepository.replaceById(id, orientacionSexual);
   }
-
-  @del('/orientacion-sexual/{id}', {
+  
+  @authenticate('TokenAdminStrategy')
+  @del('/orientacion/{id}', {
     responses: {
       '204': {
         description: 'OrientacionSexual DELETE success',

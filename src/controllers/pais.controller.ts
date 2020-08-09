@@ -16,6 +16,7 @@ import {
   put,
   del,
   requestBody,
+  HttpErrors,
 } from '@loopback/rest';
 import {Pais} from '../models';
 import {PaisRepository} from '../repositories';
@@ -48,7 +49,12 @@ export class PaisController {
     })
     pais: Omit<Pais, 'id'>,
   ): Promise<Pais> {
+    let currentPais = await this.paisRepository.findOne({ where:{Nombre: pais.Nombre}});
+    if (currentPais){
+       throw new HttpErrors[401]("Este país ya existe");
+    }else{
     return this.paisRepository.create(pais);
+    }
   }
 
   @get('/pais/count', {
@@ -127,7 +133,8 @@ export class PaisController {
   ): Promise<Pais> {
     return this.paisRepository.findById(id, filter);
   }
-
+  
+  @authenticate('TokenAdminStrategy')
   @patch('/pais/{id}', {
     responses: {
       '204': {

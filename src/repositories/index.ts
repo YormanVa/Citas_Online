@@ -11,3 +11,4 @@ export * from './advertising.repository';
 export * from './ciudad.repository';
 export * from './pais.repository';
 export * from './orientacion-sexual.repository';
+export * from './estado-civil.repository';

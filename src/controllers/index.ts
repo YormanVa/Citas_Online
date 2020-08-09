@@ -27,3 +27,4 @@ export * from './ciudad-pais.controller';
 export * from './orientacion-sexual.controller';
 export * from './pais.controller';
 export * from './ciudad.controller';
+export * from './estado-civil.controller';
