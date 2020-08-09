@@ -16,6 +16,12 @@ export class Imagen extends Entity {
   })
   ruta: string;
 
+  @property({
+    type: 'number',
+    required: true,
+  })
+  order: number;
+
   @belongsTo(() => Perfil)
   perfilId: string;
 

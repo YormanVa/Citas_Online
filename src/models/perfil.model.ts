@@ -70,6 +70,12 @@ export class Perfil extends Entity {
   })
   ocupacion?: string;
 
+  @property({
+    type: 'string',
+    required: false,
+  })
+  perfilFoto?: string;
+
 
   @property({
     type: 'boolean',
