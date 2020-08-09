@@ -32,6 +32,28 @@ export class AuthService {
     return false;
   }
 
+  async VerifyUsertoChangePassword(id: string, currentPassword: string): Promise<Usuario | false> {
+    let user = await this.userRepository.findById(id);
+    if (user) {
+      let cryptPass = new EncryptDecrypt(keys.LOGIN_CRYPT).Encrypt(currentPassword);
+      if (user.contrasena == cryptPass) {
+        return user;
+      }
+    }
+    return false;
+  }
+
+  async ChangePassword(user: Usuario, newPassword: string): Promise<boolean> {
+    try{
+    let encryptPass = new EncryptDecrypt(keys.LOGIN_CRYPT).Encrypt(newPassword);
+    user.contrasena = encryptPass;
+    await this.userRepository.updateById(user.id,user);
+    return true;}
+    catch(_){
+      return false;
+    }
+  }
+
   /**
    *
    * @param user

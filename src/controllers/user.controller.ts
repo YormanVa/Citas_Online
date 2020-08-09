@@ -15,6 +15,12 @@ class Credentials {
   password: string;
 }
 
+class ChangePasswordData {
+  id: string;
+  currentPassword: string;
+  newPassword: string;
+}
+
 class PasswordResetData {
   correo: string;
   type: number;
@@ -122,5 +128,24 @@ export class UserController {
     throw new HttpErrors[401]("user not found");
 
   }
+
+  @post('/cambiar-contrasena', {
+    responses: {
+      '200': {
+        description: 'Login para usuarios'
+      }
+    }
+
+  })
+  async changePassword(
+    @requestBody() data: ChangePasswordData): Promise<boolean> {
+    let user = await this.authService.VerifyUsertoChangePassword(data.id, data.currentPassword);
+    if (user) {
+      return await this.authService.ChangePassword(user, data.newPassword);
+    } else {
+      throw new HttpErrors[401]("Usuario o contraseña invalidos.");
+    }
+  }
+
 }
 
