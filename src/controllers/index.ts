@@ -30,3 +30,7 @@ export * from './ciudad.controller';
 export * from './estado-civil.controller';
 export * from './carga-archivos.controller';
 export * from './descarga-archivos.controller';
+export * from './perfil-ciudad.controller';
+export * from './perfil-pais.controller';
+export * from './ciudad-perfil.controller';
+export * from './pais-perfil.controller';

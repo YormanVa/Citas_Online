@@ -1,4 +1,4 @@
-import {Entity, hasMany, hasOne, model, property} from '@loopback/repository';
+import {Entity, hasMany, hasOne, model, property, belongsTo} from '@loopback/repository';
 import {Actividad} from './actividad.model';
 import {Caracterizacion} from './caracterizacion.model';
 import {Denuncia} from './denuncia.model';
@@ -6,6 +6,8 @@ import {Imagen} from './imagen.model';
 import {Opinion} from './opinion.model';
 import {Ubicacion} from './ubicacion.model';
 import {Usuario} from './usuario.model';
+import {Ciudad} from './ciudad.model';
+import {Pais} from './pais.model';
 
 @model()
 export class Perfil extends Entity {
@@ -123,6 +125,12 @@ export class Perfil extends Entity {
 
   @hasOne(() => Opinion)
   opinion: Opinion;
+
+  @belongsTo(() => Ciudad)
+  ciudadId: string;
+
+  @belongsTo(() => Pais)
+  paisId: string;
 
   constructor(data?: Partial<Perfil>) {
     super(data);

@@ -1,5 +1,5 @@
 import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory, HasOneRepositoryFactory} from '@loopback/repository';
-import {Perfil, PerfilRelations, Usuario, Imagen, Actividad, Caracterizacion, Denuncia, Ubicacion, Opinion} from '../models';
+import {Perfil, PerfilRelations, Usuario, Imagen, Actividad, Caracterizacion, Denuncia, Ubicacion, Opinion, Ciudad, Pais} from '../models';
 import {MongoDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
 import {UsuarioRepository} from './usuario.repository';
@@ -9,6 +9,8 @@ import {CaracterizacionRepository} from './caracterizacion.repository';
 import {DenunciaRepository} from './denuncia.repository';
 import {UbicacionRepository} from './ubicacion.repository';
 import {OpinionRepository} from './opinion.repository';
+import {CiudadRepository} from './ciudad.repository';
+import {PaisRepository} from './pais.repository';
 
 export class PerfilRepository extends DefaultCrudRepository<
   Perfil,
@@ -32,10 +34,18 @@ export class PerfilRepository extends DefaultCrudRepository<
 
   public readonly opinion: HasOneRepositoryFactory<Opinion, typeof Perfil.prototype.id>;
 
+  public readonly ciudad: BelongsToAccessor<Ciudad, typeof Perfil.prototype.id>;
+
+  public readonly pais: BelongsToAccessor<Pais, typeof Perfil.prototype.id>;
+
   constructor(
-    @inject('datasources.mongo') dataSource: MongoDataSource, @repository.getter('UsuarioRepository') protected usuarioRepositoryGetter: Getter<UsuarioRepository>, @repository.getter('ImagenRepository') protected imagenRepositoryGetter: Getter<ImagenRepository>, @repository.getter('ActividadRepository') protected actividadRepositoryGetter: Getter<ActividadRepository>, @repository.getter('CaracterizacionRepository') protected caracterizacionRepositoryGetter: Getter<CaracterizacionRepository>, @repository.getter('DenunciaRepository') protected denunciaRepositoryGetter: Getter<DenunciaRepository>, @repository.getter('UbicacionRepository') protected ubicacionRepositoryGetter: Getter<UbicacionRepository>, @repository.getter('OpinionRepository') protected opinionRepositoryGetter: Getter<OpinionRepository>,
+    @inject('datasources.mongo') dataSource: MongoDataSource, @repository.getter('UsuarioRepository') protected usuarioRepositoryGetter: Getter<UsuarioRepository>, @repository.getter('ImagenRepository') protected imagenRepositoryGetter: Getter<ImagenRepository>, @repository.getter('ActividadRepository') protected actividadRepositoryGetter: Getter<ActividadRepository>, @repository.getter('CaracterizacionRepository') protected caracterizacionRepositoryGetter: Getter<CaracterizacionRepository>, @repository.getter('DenunciaRepository') protected denunciaRepositoryGetter: Getter<DenunciaRepository>, @repository.getter('UbicacionRepository') protected ubicacionRepositoryGetter: Getter<UbicacionRepository>, @repository.getter('OpinionRepository') protected opinionRepositoryGetter: Getter<OpinionRepository>, @repository.getter('CiudadRepository') protected ciudadRepositoryGetter: Getter<CiudadRepository>, @repository.getter('PaisRepository') protected paisRepositoryGetter: Getter<PaisRepository>,
   ) {
     super(Perfil, dataSource);
+    this.pais = this.createBelongsToAccessorFor('pais', paisRepositoryGetter,);
+    this.registerInclusionResolver('pais', this.pais.inclusionResolver);
+    this.ciudad = this.createBelongsToAccessorFor('ciudad', ciudadRepositoryGetter,);
+    this.registerInclusionResolver('ciudad', this.ciudad.inclusionResolver);
     this.opinion = this.createHasOneRepositoryFactoryFor('opinion', opinionRepositoryGetter);
     this.registerInclusionResolver('opinion', this.opinion.inclusionResolver);
     this.ubicacion = this.createHasOneRepositoryFactoryFor('ubicacion', ubicacionRepositoryGetter);
