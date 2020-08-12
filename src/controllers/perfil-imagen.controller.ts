@@ -1,3 +1,4 @@
+import { authenticate } from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -26,7 +27,7 @@ export class PerfilImagenController {
     @repository(PerfilRepository) protected perfilRepository: PerfilRepository,
   ) { }
 
-  @get('/perfils/{id}/imagens', {
+  @get('/perfiles/{id}/imagenes', {
     responses: {
       '200': {
         description: 'Array of Perfil has many Imagen',
@@ -45,7 +46,8 @@ export class PerfilImagenController {
     return this.perfilRepository.imagenes(id).find(filter);
   }
 
-  @post('/perfils/{id}/imagens', {
+  @authenticate('TokenBasicStrategy')
+  @post('/perfiles/{id}/imagenes', {
     responses: {
       '200': {
         description: 'Perfil model instance',
@@ -70,7 +72,7 @@ export class PerfilImagenController {
     return this.perfilRepository.imagenes(id).create(imagen);
   }
 
-  @patch('/perfils/{id}/imagens', {
+  @patch('/perfiles/{id}/imagenes', {
     responses: {
       '200': {
         description: 'Perfil.Imagen PATCH success count',
@@ -92,8 +94,8 @@ export class PerfilImagenController {
   ): Promise<Count> {
     return this.perfilRepository.imagenes(id).patch(imagen, where);
   }
-
-  @del('/perfils/{id}/imagens', {
+  @authenticate('TokenBasicStrategy')
+  @del('/perfiles/{id}/imagenes', {
     responses: {
       '200': {
         description: 'Perfil.Imagen DELETE success count',
@@ -107,4 +109,6 @@ export class PerfilImagenController {
   ): Promise<Count> {
     return this.perfilRepository.imagenes(id).delete(where);
   }
+
+  
 }

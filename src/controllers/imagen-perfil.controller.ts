@@ -1,7 +1,9 @@
+import { PerfilRepository } from './../repositories/perfil.repository';
+import { authenticate } from '@loopback/authentication';
 import {repository} from '@loopback/repository';
 import {
   get,
-  getModelSchemaRef, param
+  getModelSchemaRef, param, del
 } from '@loopback/rest';
 import {
   Imagen,
@@ -16,7 +18,7 @@ export class ImagenPerfilController {
   ) {}
 
 
-  @get('/imagens/{id}/perfil', {
+  @get('/imagenes/{id}/perfil', {
     responses: {
       '200': {
         description: 'Perfil belonging to Imagen',
@@ -32,5 +34,18 @@ export class ImagenPerfilController {
     @param.path.string('id') id: typeof Imagen.prototype.id,
   ): Promise<Perfil> {
     return this.imagenRepository.perfil(id);
+  }
+
+
+  @del('/perfil-imagen/{id}', {
+    responses: {
+      '204': {
+        description: 'Perfil Image DELETE success',
+      },
+    },
+  })
+  async deleteById(@param.path.string('id') imageId: string): Promise<void> {
+    await this.imagenRepository.deleteById(imageId);
+
   }
 }

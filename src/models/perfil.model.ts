@@ -100,7 +100,10 @@ export class Perfil extends Entity {
   })
   estado: boolean;
 
-
+  @property({
+    type: 'string',
+  })
+  fotoPerfil?: string;
 
 
 
