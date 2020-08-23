@@ -94,22 +94,19 @@ export class Perfil extends Entity {
   })
   bebedor?: boolean;
 
-  @property({
-    type: 'boolean',
-    required: false,
-  })
-  estado: boolean;
 
   @property({
     type: 'string',
+    required: false,
   })
-  fotoPerfil?: string;
+  intereses?: string;
+
+  
 
 
 
 
-  @hasMany(() => Imagen)
-  imagenes: Imagen[];
+
 
   @hasMany(() => Actividad)
   actividades: Actividad[];
@@ -129,11 +126,15 @@ export class Perfil extends Entity {
   @hasOne(() => Opinion)
   opinion: Opinion;
 
+  @belongsTo(() => Pais)
+  paisId: string;
+
   @belongsTo(() => Ciudad)
   ciudadId: string;
 
-  @belongsTo(() => Pais)
-  paisId: string;
+
+  @hasMany(() => Imagen)
+  imagenes: Imagen[];
 
   constructor(data?: Partial<Perfil>) {
     super(data);
